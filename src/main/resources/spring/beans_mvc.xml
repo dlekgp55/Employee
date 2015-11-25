@@ -17,7 +17,8 @@
 </mvc:view-resolvers>
 
 <mvc:view-controller path="/index.html" view-name="index"/>
-
+<!-- http://localhost:8085/Employee/index.html 이런식으로 불러온다.(보안성 좋음)
+           위의 resolvers에서 jsp로 변환. 실제 주소는 Employee/~~/~~/index.jsp로 길고, 마지막이 jsp다 -->
 <mvc:resources location="/WEB-INF/css/" mapping="/css/**" cache-period="0"/>
 <mvc:resources location="/WEB-INF/js/" mapping="/js/**" cache-period="0"/>
 <mvc:resources location="/WEB-INF/img/" mapping="/img/**" cache-period="0"/>
@@ -25,5 +26,6 @@
 <mvc:resources location="/WEB-INF/node_modules/angular/" mapping="/angular/**"/>
 <mvc:resources location="/WEB-INF/node_modules/bootstrap/" mapping="/bootstrap/**"/>
 <mvc:resources location="/WEB-INF/node_modules/jquery/" mapping="/jquery/**"/>
+<!-- spring은 WEB-INF를 인식 하지 못한다. 그래서 mapping 해야 함. mapping의 이름은 동일하지 않아도 된다. -->
 
 </beans>

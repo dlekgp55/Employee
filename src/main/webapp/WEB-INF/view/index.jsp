@@ -10,13 +10,7 @@
 <meta charset="UTF-8">
 <title>index.jsp</title>
 
-<c:url var="bootstrap" value="/bootstrap/dist/css/bootstrap.css"/>
-<c:url var="jquery" value="/jquery/dist/jquery.js"/>
-<c:url var="angular" value="/angular/angular.js"/>
-
-<link rel="stylesheet" href="${bootstrap}"/>
-<script type="text/javascript" src="${jquery}"></script>
-<script type="text/javascript" src="${angular}"></script>
+<%@ include file="/WEB-INF/view/common.jspf" %><!-- jspf는 조각 부분을 의미함. -->
 
 
 <style type="text/css">
@@ -38,12 +32,28 @@
 	
 
 </style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('li>a').click(function() {		/* $는 jquery 함수 li밑에 a를 찾는다.*/		
+		
+		$('ul>li').removeClass('active');		/* ul밑에 li를 찾아서 active를 지운다. */
+		
+		var str = $(this).text();				
+		$('#result').text(str);			
+		/* (#  +  id), (. + class)( 앞에 아무것도 없을때는 tag). css, jquery 동일 */		
+		$(this).parent().addClass('active');
+	});
+});
+
+</script>
+
 </head>
 <body>
 <h1 class="title_animation">Employee</h1>
 
 <ul class="pagination">
-	<li><a href="#">Prev</a></li>
+	<li><a href="#">Prev</a></li>		<!-- #은 값이 없을 때 임의적으로 넣을수 있다. 위의 result # 과는 다르다. --> 
 	<li><a href="#">1</a></li>
 	<li class="active"><a href="#">2</a></li>
 	<li><a href="#">3</a></li>
@@ -56,6 +66,7 @@
 	<li><a href="#">10</a></li>
 	<li><a href="#">Next</a></li>
 </ul>
+<div id="result"></div>
 
 </body>
 </html>
