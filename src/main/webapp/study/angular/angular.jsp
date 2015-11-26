@@ -21,7 +21,7 @@
 
 <script type="text/javascript">
 	var app = angular.module("employeeApp", []);
-	app.controller("examController", function() {
+	app.controller("examController", function($scope, $http) {
 		/* $scope - model 영역 호출, $http - angular가 ajox 호출.*/
 		$scope.title = "Angular 기본구조 연습";
 		$scope.titleClick = function() {
@@ -58,7 +58,7 @@
 			var deptno = $scope.depts[index].deptno;
 			alert("deptno = " + deptno);
 
-			$scope.depts.splice(index, 2); //지우는 기능. 숫자는 개수
+			$scope.depts.splice(index, 1); //지우는 기능. 숫자는 개수
 		};
 
 		$scope.imgs = [
@@ -84,12 +84,11 @@
 	<hr>
 	<div class="table-responsive">
 		<!-- 화면이 작아지면 스크롤이 생긴다 -->
-		<table class="table table-condensed">
-			<!-- cell padding을 줄인다. 글자 위아래 사이  -->
+		<table class="table">
 			<thead>
 				<tr>
-					<th>No
-					<th>deptno
+					<th>No</th>
+					<th>deptno</th>
 					<th>dname</th>
 					<th>loc</th>
 					<th></th>
@@ -101,8 +100,7 @@
 					<td>{{dept.deptno}}</td>
 					<td>{{dept.dname}}</td>
 					<td>{{dept.loc}}</td>
-					<td><a href="#" class="btn btn-primary"
-						data-ng-click="deleteDept($index)">삭제</td>
+					<td><a href="#" class="btn btn-primary"	data-ng-click="deleteDept($index)">삭제</a></td>
 				</tr>
 			</tbody>
 
