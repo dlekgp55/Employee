@@ -9,7 +9,9 @@
 
 <mvc:default-servlet-handler/>
 
-<context:component-scan base-package="com.hybrid.controller"/>
+<context:component-scan base-package="com.hybrid.controller"/>	
+	<!-- controller라는 annotation이 있으면 자동 bean 등록 단, @Autowired가 있어야함. 기존의 방식인 bean 등록 해도 된다.(대규모 프로젝트) -->
+
 
 <mvc:annotation-driven/>
 <mvc:view-resolvers>

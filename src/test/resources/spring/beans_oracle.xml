@@ -16,6 +16,9 @@
 	<property name="password" value="tiger"/>
 </bean>
 
+
+<!-- namespaces에서 tx 설정함 -->
+<!-- TransactionManager -->
 <tx:annotation-driven transaction-manager="transactionManager"/>
 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	<constructor-arg ref="oracleDataSource"/>
@@ -63,8 +66,8 @@
 	<property name="empMapper" ref="oracleEmpMapper"/>
 </bean>
 
+<!-- LogAspect 사용가능  Namespaces에서 aop 선택-->
 <aop:aspectj-autoproxy/>
-
 <bean class="com.hybrid.aspect.LogDaoAspect"/>
 
 <!-- <bean class="com.hybrid.aspect.TransactionAspect"> -->

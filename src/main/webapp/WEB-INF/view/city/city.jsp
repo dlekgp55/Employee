@@ -1,47 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html lang="ko"  data-ng-app="employeeApp">   <!-- ng - HTML에 기능 부여 , app 최상위-->
+<html lang="ko" data-ng-app="employeeApp">
+<!-- ng - HTML에 기능 부여 , app 최상위-->
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 
-<%@ include file="/WEB-INF/view/common.jspf" %><!-- jspf는 조각 부분을 의미함. -->
+<%@ include file="/WEB-INF/view/common.jspf"%><!-- jspf는 조각 부분을 의미함. -->
 
 <title>city.jsp</title>
+<c:url var="url_all" value="/city" />
+<c:url var="url_page" value="/city/page/" />
 
 <script type="text/javascript">
-	var app = angular.module('employeeApp',[]);
-	
-	
-	app.controller('listController', function($scope) {		/* listController 호출 */
-// 		alert("listController called...");
-		
-		$scope.result = 0;
-	
-		$scope.getData = function() {
-			$scope.result += 1;
-		};
-		
-		$scope.clear = function() {
-			$scope.result = 0;	
-		};
+	var app = angular.module('employeeApp', []);
+	app.controller('listController', function($scope, $http) { /* listController 호출 */
+		var url_all = "${url_all}";
+		var url_page = "${url_page}";
+
+		$scope.citys = [];
+
+		$http.get(url_all).success(function(data, status, headers, config) {
+			console.dir(data);
+			$scope.citys = data.citys;
+
+			// 			alert('success...');
+		});
+
 	});
 </script>
 
 
 </head>
-<body data-ng-controller="listController">
-<h1>City List</h1>
+<body data-ng-controller="listController" class="container">
+	<h1>City List</h1>
 
-<button class="btn btn-primary" data-ng-click="getData()">GET</button>
-<button class="btn btn-success" data-ng-click="clear()">Clear</button>
-<hr>
-<textarea id="result" rows="20" cols="50">{{result}}</textarea>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<div class="tabel-responsive">
+				<table class="table table-striped table-hover">
+					<!-- table-hover는 마우스 움직이면 리스트 색이 변한다. -->
+					<thead>
+						<th>No</th>
+						<th>ID</th>
+						<th>Name</th>
+						<th>CountryCode</th>
+						<th>District</th>
+						<th>Population</th>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="city in citys">
+							<td>{{$index+1}}</td>
+							<td>{{city.id}}</td>
+							<td>{{city.name}}</td>
+							<td>{{city.countryCode}}</td>
+							<td>{{city.district}}</td>
+							<td>{{city.population}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
 
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<textarea rows="20" class="form-control">{{citys}}</textarea>
+				<!-- 위에 form-group을 주고 form-control -> width를 전체 차지함. -->
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

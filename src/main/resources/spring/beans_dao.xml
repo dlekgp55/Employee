@@ -2,9 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
+<!-- namespaces에서 aop 설정함 -->
+<!-- LogAspect -->
+<aop:aspectj-autoproxy/>
+<bean class="com.hybrid.aspect.LogAspect"/>
+
+
+<!-- namespaces에서 tx 설정함 -->
+<!-- TransactionManager -->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource"/>
+</bean>
+
+
+<!-- Oracle / MySQL -->
 <context:property-placeholder location="classpath:database/db.properties"/>
 
 <!-- DataSource -->
@@ -19,11 +38,24 @@
 
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource"/>
-	<property name="mapperLocations">
-		<list>
-			<value>classpath:com/hybrid/mapper/MemberMapper.xml</value>
-		</list>
+	
+	<property name="databaseIdProvider">
+		<bean class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+			<property name="properties">
+				<props>
+					<prop key="MySQL">mysql</prop>
+					<prop key="Oracle">oracle</prop>
+				</props>
+			</property>
+		</bean>
 	</property>
+	
+	
+<!-- 	<property name="mapperLocations"> -->
+<!-- 		<list> -->
+<!-- 			<value>classpath:com/hybrid/mapper/MemberMapper.xml</value> -->
+<!-- 		</list> -->
+<!-- 	</property> -->
 </bean>
 
 <!-- SqlSessionTemplate -->
@@ -38,11 +70,15 @@
 </bean>
 
 <!-- CityMapper -->
-<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+<bean id="cityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 	<property name="mapperInterface" value="com.hybrid.mapper.CityMapper"/>
 	<property name="sqlSessionTemplate" ref="sqlSession"/>
 </bean>
+<!-- CityDao -->
+<bean id="cityDao" class="com.hybrid.dao.CityDao">
+	<property name="cityMapper" ref="cityMapper"></property>
 
+</bean>
 
 
 </beans>
