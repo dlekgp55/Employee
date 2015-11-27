@@ -14,22 +14,47 @@
 
 <title>city.jsp</title>
 <c:url var="url_all" value="/city" />
-<c:url var="url_page" value="/city/page/" />
+<c:url var="url_page" value="/city/page/"/>
 
 <script type="text/javascript">
 	var app = angular.module('employeeApp', []);
 	app.controller('listController', function($scope, $http) { /* listController 호출 */
 		var url_all = "${url_all}";
 		var url_page = "${url_page}";
-
+		
+		$scope.pageNo = 1;
 		$scope.citys = [];
-
-		$http.get(url_all).success(function(data, status, headers, config) {
-			console.dir(data);
-			$scope.citys = data.citys;
-
-			// 			alert('success...');
-		});
+		$scope.paging = {};
+		
+		$scope.selectPage = function() {
+			$http.get(url_page + $scope.pageNo).success(function(data, status, headers, config) {
+				console.dir(data);
+				$scope.citys = data.citys;
+				$scope.paging = data.paging;
+	// 			alert('success...');
+			});	
+		}
+		
+		$scope.selectPage();
+		
+		$scope.prevClick = function(pageNo) {
+			$scope.pageNo = pageNo;
+			$scope.selectPage();
+// 			alert("pageNo = " + pageNo);
+		};
+		
+		$scope.pageClick = function(pageNo) {
+			$scope.pageNo = pageNo;
+			$scope.selectPage();
+// 			alert("pageNo = " + pageNo);
+		};
+		
+		
+		$scope.nextClick = function(pageNo) {
+			$scope.pageNo = pageNo;
+			$scope.selectPage();
+// 			alert("pageNo = " + pageNo);
+		};
 
 	});
 </script>
@@ -43,6 +68,14 @@
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8">
 			<div class="tabel-responsive">
+				<ul class="pagination">
+					<li><a href="#" data-ng-click="prevClick(paging.firstPage-1)">Prev</a></li>
+					<li data-ng-repeat="">
+					
+					</li>
+					<li><a href="#" data-ng-click="nextClick(paging.lastPage+1)">Next</a></li>
+				</ul>
+				
 				<table class="table table-striped table-hover">
 					<!-- table-hover는 마우스 움직이면 리스트 색이 변한다. -->
 					<thead>
@@ -73,7 +106,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group">
-				<textarea rows="20" class="form-control">{{citys}}</textarea>
+				<textarea rows="20" class="form-control">
+					{{citys}}
+					{{paging}}
+				</textarea>
 				<!-- 위에 form-group을 주고 form-control -> width를 전체 차지함. -->
 			</div>
 		</div>
