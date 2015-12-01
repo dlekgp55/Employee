@@ -26,7 +26,7 @@
 		$scope.citys = [];
 		$scope.paging = {};
 		
-		$scope.selectPage = function() {
+		$scope.selectPage = function() {			//선언부
 			$http.get(url_page + $scope.pageNo).success(function(data, status, headers, config) {
 				console.dir(data);
 				$scope.citys = data.citys;
@@ -35,15 +35,17 @@
 			});	
 		}
 		
-		$scope.selectPage();
+		$scope.selectPage();					//실행부 
 		
 		$scope.prevClick = function(pageNo) {
+			console.log("prevClick()... pageNo = " + pageNo);
 			$scope.pageNo = pageNo;
 			$scope.selectPage();
 // 			alert("pageNo = " + pageNo);
 		};
 		
 		$scope.pageClick = function(pageNo) {
+			console.log("pageClick()... pageNo = " + pageNo);
 			$scope.pageNo = pageNo;
 			$scope.selectPage();
 // 			alert("pageNo = " + pageNo);
@@ -51,6 +53,7 @@
 		
 		
 		$scope.nextClick = function(pageNo) {
+			console.log("nextClick()... pageNo = " + pageNo);
 			$scope.pageNo = pageNo;
 			$scope.selectPage();
 // 			alert("pageNo = " + pageNo);
@@ -70,7 +73,8 @@
 			<div class="tabel-responsive">
 				<ul class="pagination">
 					<li><a href="#" data-ng-click="prevClick(paging.firstPage-1)">Prev</a></li>
-					<li data-ng-repeat="">
+					<li data-ng-repeat="city in citys">
+						<a href="#" data-ng-click="pageClick(paging.firstPage + $index)">{{paging.firstPage + $index}}</a>
 					
 					</li>
 					<li><a href="#" data-ng-click="nextClick(paging.lastPage+1)">Next</a></li>
