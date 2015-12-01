@@ -61,9 +61,9 @@
 		 $scope.imgSwipeLeft = function(e) {
 				console.log("imgSwipeLeft()...");
 				console.dir(e);
-				number--;
-				if (number<0) {
-					number= 10;	
+				number++;
+				if (number>10) {
+					number= 0;	
 				}
 				$scope.imgmsg = "ng-swipe-left fired...";
 				$scope.imgURL = "http://www.placehold.it/400x400/ff0000/0000ff?text="+number;
@@ -72,9 +72,9 @@
 			$scope.imgSwipeRight = function(e) {
 				console.log("imgSwipeRight()...");
 				console.dir(e);
-				number++;
-				if (number>10) {
-					number= 0;	
+				number--;
+				if (number<0) {
+					number= 10;	
 				}
 				$scope.imgmsg = "ng-swipe-right fired...";
 				$scope.imgURL = "http://www.placehold.it/400x400/ff00ff/0000ff?text="+number;
@@ -96,7 +96,8 @@
 	<hr>
 	<img  ng-swipe-left="imgSwipeLeft($event)"	
 		  ng-swipe-right="imgSwipeRight($event)"
-		  draggable="false" class="img_responsive" alt="{{imgURL}}" src="{{imgURL}}">		<!-- 드레그 안되게 했음 -->
+		  ondragstart="return false"		
+		  draggable="false" class="img_responsive" alt="{{imgURL}}" data-ng-src="{{imgURL}}">	<!-- ondragstart -드래그 금지  -->	<!-- 드레그 안되게 했음, data-ng-src로 하면 네트워크에서 error 안남 -->
 	<hr>
 	<p>{{imgmsg}}</p>
 	

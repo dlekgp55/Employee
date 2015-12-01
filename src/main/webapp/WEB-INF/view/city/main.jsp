@@ -1,122 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" session="false" trimDirectiveWhitespaces="true" %>	 	<!-- ssession 이 안만들어 지도록, trim - 웹에서 source보기에서 빈공간 없게 보이게 함. -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <!DOCTYPE html>
 <html lang="ko" data-ng-app="employeeApp">
-<!-- ng - HTML에 기능 부여 , app 최상위-->
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 
-<%@ include file="/WEB-INF/view/common.jspf"%><!-- jspf는 조각 부분을 의미함. -->
+<%@ include file="/WEB-INF/view/common.jspf" %><!-- jspf는 조각 부분을 의미함. -->
 
-<title>city.jsp</title>
-<c:url var="url_all" value="/city" />
-<c:url var="url_page" value="/city/page/"/>
+<title>main.jsp</title>
 
+<!-- URL Resolve -->
+<c:url var="URL_GET_LIST" value="/city/"/>
+<c:url var="URL_GET_PAGE_BASE" value="/city/page/"/>
+<c:url var="URL_GET_ITEM_BASE" value="/city/"/>
 <script type="text/javascript">
-	var app = angular.module('employeeApp', []);
-	app.controller('listController', function($scope, $http) { /* listController 호출 */
-		var url_all = "${url_all}";
-		var url_page = "${url_page}";
-		
-		$scope.pageNo = 1;
-		$scope.citys = [];
-		$scope.paging = {};
-		
-		$scope.selectPage = function() {			//선언부
-			$http.get(url_page + $scope.pageNo).success(function(data, status, headers, config) {
-				console.dir(data);
-				$scope.citys = data.citys;
-				$scope.paging = data.paging;
-	// 			alert('success...');
-			});	
-		}
-		
-		$scope.selectPage();					//실행부 
-		
-		$scope.prevClick = function(pageNo) {
-			console.log("prevClick()... pageNo = " + pageNo);
-			$scope.pageNo = pageNo;
-			$scope.selectPage();
-// 			alert("pageNo = " + pageNo);
-		};
-		
-		$scope.pageClick = function(pageNo) {
-			console.log("pageClick()... pageNo = " + pageNo);
-			$scope.pageNo = pageNo;
-			$scope.selectPage();
-// 			alert("pageNo = " + pageNo);
-		};
-		
-		
-		$scope.nextClick = function(pageNo) {
-			console.log("nextClick()... pageNo = " + pageNo);
-			$scope.pageNo = pageNo;
-			$scope.selectPage();
-// 			alert("pageNo = " + pageNo);
-		};
-
-	});
+	
+	var urls = {
+			GET_LIST : 			"${URL_GET_LIST}",
+			GET_PAGE_BASE : 	"${URL_GET_PAGE_BASE}",
+			GET_ITEM_BASE : 	"${URL_GET_ITEM_BASE}"	
+			
+	};
+	
+	var depts = ['ngRoute',
+				 'ngAnimate',
+				 'ngTouch',
+				 'angular-loading-bar'           
+				];            
+	var app = angular.module("employeeApp", depts);
+	
+	app.constant("URL", urls);
+	
+	app.controller("mainController", function($scope,$http, $location) {		/* $location이 있어야 아래의 location기능 */
+		console.log("mainController...");
+		$location.path("/list");							/* listController의 $routeProvider.when("/list" 이 수행됨. 이건 #이 필요 없음*/
+	});														/* 아래의 data-ng-view로 정보가 들어간다. */
+			
 </script>
 
-
+<c:url var="listController" value="/js/city/listController.js"/>
+<c:url var="detailController" value="/js/city/detailController.js"/>
+<script type="text/javascript" src="${listController}"></script>
+<script type="text/javascript" src="${detailController}"></script>
 </head>
-<body data-ng-controller="listController" class="container">
-	<h1>City List</h1>
+<body data-ng-controller="mainController" class="container">
+	<h1>{{title}}</h1>
+	<div data-ng-view>
 
-	<div class="row">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-8">
-			<div class="tabel-responsive">
-				<ul class="pagination">
-					<li><a href="#" data-ng-click="prevClick(paging.firstPage-1)">Prev</a></li>
-					<li data-ng-repeat="city in citys">
-						<a href="#" data-ng-click="pageClick(paging.firstPage + $index)">{{paging.firstPage + $index}}</a>
-					
-					</li>
-					<li><a href="#" data-ng-click="nextClick(paging.lastPage+1)">Next</a></li>
-				</ul>
-				
-				<table class="table table-striped table-hover">
-					<!-- table-hover는 마우스 움직이면 리스트 색이 변한다. -->
-					<thead>
-						<th>No</th>
-						<th>ID</th>
-						<th>Name</th>
-						<th>CountryCode</th>
-						<th>District</th>
-						<th>Population</th>
-					</thead>
-					<tbody>
-						<tr data-ng-repeat="city in citys">
-							<td>{{$index+1}}</td>
-							<td>{{city.id}}</td>
-							<td>{{city.name}}</td>
-							<td>{{city.countryCode}}</td>
-							<td>{{city.district}}</td>
-							<td>{{city.population}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="col-sm-2"></div>
-
-	</div>
-
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="form-group">
-				<textarea rows="20" class="form-control">
-					{{citys}}
-					{{paging}}
-				</textarea>
-				<!-- 위에 form-group을 주고 form-control -> width를 전체 차지함. -->
-			</div>
-		</div>
 	</div>
 
 </body>

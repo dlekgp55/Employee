@@ -41,6 +41,18 @@ public class CityController {
 		return "city/main";		// 	http://localhost:8080/Employee/city/main.html 치면 최종적으로는 /WEB-INF/view/city/main.jsp 실행 된다. 
 	}
 	
+	@RequestMapping("/list.html")	
+	public String getListView() {
+		log.info("getListView()...");
+		return "city/list";		
+	}
+	
+	@RequestMapping("/detail.html")	
+	public String getDetailView() {
+		log.info("getDetailView()...");
+		return "city/detail";		 
+	}
+	
 	@RequestMapping({"","/"})		/*http://localhost:8080/Employee/city , http://localhost:8080/Employee/city/ 둘다 가능하게 함.
 */	@ResponseBody		//기본적으로 RequestMapping은 view type으로 취급,ResponseBody을 추가 하면 return type을 data로 취급 한다.
 	public CityList getCityAll(){		//CityList.java에 @XmlRootElement 추가.
