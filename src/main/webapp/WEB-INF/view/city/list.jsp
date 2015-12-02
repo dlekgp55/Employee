@@ -17,16 +17,22 @@
 				<a href=""data-ng-click="pageClick(paging.firstPage + $index)">{{paging.firstPage	+ $index}}</a></li>
 			<li><a href="" data-ng-click="nextClick(paging.lastPage+1)">Next</a></li>
 		</ul>
-
+		
+		<a href="#/append" class="btn btn-primary">Append</a>
+		
 		<table class="table table-striped table-hover">
 			<!-- table-hover는 마우스 움직이면 리스트 색이 변한다. -->
 			<thead>
-				<th>No</th>
-				<th>ID</th>
-				<th>Name</th>
-				<th>CountryCode</th>
-				<th>District</th>
-				<th>Population</th>
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>CountryCode</th>
+					<th>District</th>
+					<th>Population</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="city in citys">
@@ -38,6 +44,8 @@
 					<td>{{city.countryCode}}</td>
 					<td>{{city.district}}</td>
 					<td>{{city.population}}</td>
+					<td><a href="#/modify" class="btn btn-success">Modify</a></td>
+					<td><a href="#/delete" class="btn btn-info">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -4,7 +4,7 @@
 
 
 app.config(function($routeProvider) {			/* maingController가 실행되고 부분 화면을 넣기 위해 route가 실행 된다. */
-		console.log("list config...");		
+		console.log("/list config...");		
 		
 		$routeProvider.when("/list",{					/* http://localhost:8080/Employee/city/main.html#/list */
 			controller: "listController",			/* var listController 객체를 불러온다. */

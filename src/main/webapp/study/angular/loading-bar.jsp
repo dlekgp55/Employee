@@ -31,7 +31,7 @@
 		var url ="${URL_GET_LIST}";											//로딩바는 지연 시간이 길면 자동으로 왼쪽 상단에 나온다.
 		
 		var ajax = $http.get(url);
-		ajax.then(function(response) {
+		ajax.then(function(response) {				/* response 이름은 아무거나 해도 된다. response에 결과 값이 호출 된다.*/
 			console.log("success...");
 			console.dir(response);
 			$scope.citys = response.data.citys;

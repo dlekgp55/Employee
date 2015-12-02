@@ -8,7 +8,7 @@
 <head>
 
 </head>
-<title>detail.jsp</title>
+<title>modify.jsp</title>
 <body class="container">
 <a class="btn btn-primary" href="#/list">list...</a>			<!-- http://localhost:8080/Employee/city/main.html#/list 로 간다. -->
 
