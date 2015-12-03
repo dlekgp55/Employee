@@ -64,6 +64,27 @@ select id,
   from city
  where countrycode = 'USA' 
   
+ 
+ -- id는 auto_increment
+ insert into city
+ (
+	name,
+   	countrycode,
+  	district,
+  	population
+ )
+ values 
+ (
+ 	'java',
+ 	'web',
+ 	'programming',
+ 	10000000
+ )
+
+ 
+ 
+ 
+ 
 --
 -- Country
 --

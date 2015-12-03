@@ -19,7 +19,7 @@ app.controller('modifyController', function($scope, $http, URL) { /* listControl
 	console.log("modifyController...");
 	console.log("URL.PUT_LIST_MODIFY_BASE = " + URL.PUT_LIST_MODIFY_BASE);
 	
-	$scope.$parent.title = "Mdify City View";			//이것의 부모의 title 설정
+	$scope.$parent.title = "Modify City View";			//이것의 부모의 title 설정
 	
 
 });

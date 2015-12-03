@@ -68,7 +68,7 @@
 
 <!-- LogAspect 사용가능  Namespaces에서 aop 선택-->
 <aop:aspectj-autoproxy/>
-<bean class="com.hybrid.aspect.LogDaoAspect"/>
+<bean class="com.hybrid.aspect.LogAspect"/>
 
 <!-- <bean class="com.hybrid.aspect.TransactionAspect"> -->
 <!-- 	<property name="dataSource" ref="oracleDataSource"/> -->

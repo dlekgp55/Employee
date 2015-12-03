@@ -18,11 +18,11 @@
 			<li><a href="" data-ng-click="nextClick(paging.lastPage+1)">Next</a></li>
 		</ul>
 		
-		<a href="#/append" class="btn btn-primary">Append</a>
-		
 		<table class="table table-striped table-hover">
 			<!-- table-hover는 마우스 움직이면 리스트 색이 변한다. -->
 			<thead>
+				<tr><td><a href="#/append" class="btn btn-primary">Append</a></td></tr>
+			
 				<tr>
 					<th>No</th>
 					<th>ID</th>

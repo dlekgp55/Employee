@@ -47,6 +47,9 @@ public class CityTransfer {
 			public void accept(City t) {
 				System.out.print(".");
 				System.out.flush();
+				if (t.getDistrict().equals("")){			//mysql의 district에 null은 아닌데 값이 없는것이 있다.그래서 임의적으로 변환
+					t.setDistrict(" ");
+				}
 				int rtn = oracleCityMapper.insert(t);
 				log.info("rtn = " + rtn);
 			}
