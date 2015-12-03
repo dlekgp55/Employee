@@ -56,10 +56,10 @@ drop table city
  
 create table city (
   id			numeric(11),
-  name			char(50),
-  countrycode	char(3),
-  district		char(30),
-  population	numeric(11),
+  name			char(50) not null,
+  countrycode	char(3) not null,
+  district		char(30) not null,
+  population	numeric(11) not null,
   constraint city_pk_id primary key (id)
 ) 
 
@@ -76,9 +76,19 @@ select * from city where countrycode='KOR'
 
 delete from city
 
+
+drop sequence city_id_generator
+
+create sequence city_id_generator start with 4090;	
+--start with 쓰면 이후의 번호 부터 시작 된다.city가 이미 4080이상이 있기때문에 임의로 넣음.
+
+select city_id_generator.nextval from dual;			
+-- .nextval 하면 다음 번호를 발행 한다.
+
+
 insert into city
 (
-	id, 
+	id,
 	name, 
 	countrycode, 
 	district, 
@@ -86,7 +96,7 @@ insert into city
 )
 values
 (
-	1,
+	city_id_generator.nextval,
 	'seoul',
 	'KOR',
 	'Asia',

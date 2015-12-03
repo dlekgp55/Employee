@@ -15,6 +15,10 @@
 	<property name="cityDao" ref="cityDao"/>
 </bean>
 
+<!-- CityRegisterService -->
+<bean class="com.hybrid.service.CityRegisterService">
+	<property name="cityDao" ref="cityDao"/>
+</bean>
 
 
 

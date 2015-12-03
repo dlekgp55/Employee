@@ -19,8 +19,10 @@ import com.hybrid.model.CityList;
 import com.hybrid.model.CityPage;
 import com.hybrid.service.CityListService;
 import com.hybrid.service.CityPageService;
+import com.hybrid.service.CityRegisterService;
 import com.hybrid.util.Pagination;
 import com.hybrid.command.CityCommand;
+import com.hybrid.exception.CityRegisterException;
 import com.hybrid.model.City;
 
 @Controller
@@ -34,6 +36,9 @@ public class CityController {
 	
 	@Autowired
 	CityPageService cityPageService;
+	
+	@Autowired
+	CityRegisterService cityRegisterService ;
 	
 	
 	/* 
@@ -148,10 +153,17 @@ public class CityController {
 	 */
 	@RequestMapping(value={"","/"}, method = RequestMethod.POST)				//POST(insert) 방식
 	@ResponseBody																//json으로 전송
-	public CityCommand postCityAppend(@RequestBody CityCommand city) {			//@RequestBody. property가 동일한 이름이 넘어오면 여기에 data가 들어감.
-		log.info("postCityAppend()... city id = " + city.getId());
+	public CityCommand postCityAppend(@RequestBody CityCommand command) {			//@RequestBody. property가 동일한 이름이 넘어오면 여기에 data가 들어감.
+		log.info("postCityAppend()... city id = " + command.getId());
 		
-		return city;
+		command.validate();
+		if(!command.isValid()){						//false 이면
+			//throw
+		}
+		
+		int id = cityRegisterService.regist(command.getCity());			//CityCommand를 City로 변환.
+		command.setId(id);
+		return command;
 	}
 	
 	

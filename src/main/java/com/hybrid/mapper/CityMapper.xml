@@ -12,6 +12,8 @@
 			   population
 		  from city
     </select>
+    
+    
     <select id="selectPage" 
         	parameterType="com.hybrid.util.Pagination" 
         	resultType="com.hybrid.model.City"
@@ -22,9 +24,10 @@
 			   district,
 			   population
 		  from city
-		 order by countrycode asc, name asc 
+		 order by id desc
 		 limit #{start}, #{length} 
     </select>
+    
     <select id="selectPage" 
         	parameterType="com.hybrid.util.Pagination" 
         	resultType="com.hybrid.model.City"
@@ -33,7 +36,7 @@
 		  from ( select rownum r, inner.*
 		  		   from ( select *
 		  		   			from city 
-		  		   		   order by countrycode asc, name asc
+		  		   		   order by id desc
 		  		        ) inner
 		  	   ) outer
 		 where outer.r &gt;= #{firstItem}
@@ -50,10 +53,44 @@
 		  from city
 		 where countrycode = #{countryCode}
     </select>
-    <insert id="insert" parameterType="com.hybrid.model.City">
+    
+    
+    <insert id="insert" 
+        	parameterType="com.hybrid.model.City"
+        	useGeneratedKeys="true"							
+        	keyProperty="id"
+        	databaseId="mysql"								
+        	>    
+        	<!-- useGeneratedKeys="true", keyProperty="id"  ->  mysql에서 자동으로 만들어짐. key는 id -->
         insert into city
 		(
-			id, 
+			name, 
+			countrycode, 
+			district, 
+			population
+		)
+		values
+		(
+			#{name, jdbcType=VARCHAR},				 <!-- 값이 들어오지 않으면 null값으로 변환 -->
+			#{countryCode, jdbcType=VARCHAR},
+			#{district, jdbcType=VARCHAR},
+			#{population, jdbcType=NUMERIC}
+		)
+    </insert>
+    
+    
+    <insert id="insert" 
+        	parameterType="com.hybrid.model.City"
+        	databaseId="oracle"								
+        	>    
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">	
+            	<!-- oracle의 sequence를 이렇게 사용 할수 있다. 대신 이전에 sql에서 sequence 생성을 해야 한다. -->
+            select city_id_generator.nextVal from dual            
+        </selectKey>
+        	
+        insert into city
+		(	
+			id,
 			name, 
 			countrycode, 
 			district, 
@@ -62,12 +99,18 @@
 		values
 		(
 			#{id},
-			#{name},
-			#{countryCode},
-			#{district},
-			#{population}
+			#{name, jdbcType=VARCHAR},				 <!-- 값이 들어오지 않으면 null값으로 변환 -->
+			#{countryCode, jdbcType=VARCHAR},
+			#{district, jdbcType=VARCHAR},
+			#{population, jdbcType=NUMERIC}
 		)
     </insert>
+    
+    
+    
+    
+    
+    
     <delete id="deleteAll">
         delete from city
     </delete>
