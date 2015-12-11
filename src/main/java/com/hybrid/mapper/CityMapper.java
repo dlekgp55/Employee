@@ -12,7 +12,7 @@ public interface CityMapper {
 	List<City> selectPage(Pagination paging);
 	List<City> selectByCountryCode(String countryCode);
 	
-	int insert(City city);
-	int deleteAll();
+	int insert(City city);		/*성공 개수가 나옴*/
+	int deleteAll();			/*성공 개수가 나옴*/	
 	
 }

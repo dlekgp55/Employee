@@ -20,24 +20,31 @@ public class MemberMapperSpringTest {
 	static Log log = LogFactory.getLog(MemberMapperSpringTest.class);
 	
 	public static void main(String[] args) throws SQLException {
-		test1();
+//		test1();
 //		test2();
 		
-//		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("spring/beans_dao.xml");
-//		
-//		MemberMapper memberMapper = ctx.getBean(MemberMapper.class);
-//		
-//		List<Member> list = memberMapper.selectAll();
-//		
-//		list.forEach(new Consumer<Member>() {
-//
-//			@Override
-//			public void accept(Member t) {
-//				log.info("email = " + t.getEmail());
-//				
-//			}
-//			
-//		});
+		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("spring/beans_dao.xml");
+		
+		MemberMapper memberMapper = ctx.getBean(MemberMapper.class);
+		
+		List<Member> list = memberMapper.selectAll();
+		
+		for(Member m : list) {
+			log.info(m.getId());
+			log.info(m.getEmail());
+			log.info(m.getName());
+			log.info("");
+		}
+		
+		/*list.forEach(new Consumer<Member>() {
+
+			@Override
+			public void accept(Member t) {
+				log.info("email = " + t.getEmail());
+				
+			}
+			
+		});*/
 		
 		
 	}
@@ -65,8 +72,8 @@ public class MemberMapperSpringTest {
 	static void test1() throws SQLException {
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("spring/beans_dao.xml");
 		
-//		BasicDataSource dataSource = (BasicDataSource) ctx.getBean("oracleDataSource");
-		BasicDataSource dataSource = ctx.getBean("dataSource", BasicDataSource.class);
+//		BasicDataSource dataSource = (BasicDataSource) ctx.getBean("dataSource");
+		BasicDataSource dataSource = ctx.getBean("dataSource", BasicDataSource.class);	//beans id와 class.중복 방지
 
 		log.info("className = " + dataSource.getDriverClassName());
 		log.info("url = " + dataSource.getUrl());

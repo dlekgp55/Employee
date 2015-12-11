@@ -6,7 +6,7 @@
 <!-- NEW 생성 95% 사용됨 -->
 <bean class="java.util.Date">
 	<property name="year" value="115"/>
-	<property name="month" value="08"/>
+	<property name="month" value="11"/>
 	<property name="date" value="10"/>
 </bean>
 

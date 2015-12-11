@@ -14,8 +14,8 @@ import org.aspectj.lang.annotation.Pointcut;
 public class LogAspect {
 //	static Log log = LogFactory.getLog(LogDaoAspect.class);
 	
-	@Pointcut("execution(public * com.hybrid.dao.*Dao.*(..))")
-	public void dao() {
+	@Pointcut("execution(public * com.hybrid.dao.*Dao.*(..))")		//public method, ..Dao, (변수 상관 없음)
+ 	public void dao() {
 		
 	}
 	

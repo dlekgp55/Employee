@@ -26,10 +26,10 @@ import com.hybrid.exception.CityRegisterException;
 import com.hybrid.model.City;
 
 @Controller
-@RequestMapping("/city")		//요청 맵핑. city라는 요청이 들어오면 이 controller가 처리한다.이름을 xxx해도 상관없다(임의적 이름)
-public class CityController {
+@RequestMapping("/country")		//요청 맵핑. country라는 요청이 들어오면 이 controller가 처리한다.이름을 xxx해도 상관없다(임의적 이름)
+public class CountryController {
 
-	static Log log = LogFactory.getLog(CityController.class);
+	static Log log = LogFactory.getLog(CountryController.class);
 	
 	@Autowired		//필드 주입 방식, bean_mvc에 자동으로 controller를 bean등록 할수 있게 해줌.수동으로 bean 등록을 할때는 빼준다.
 	CityListService cityListService;
@@ -49,7 +49,7 @@ public class CityController {
 	public String getMainView() {
 		log.info("getMainView()...");
 		
-		return "city/main";		// 	beans_mvc의 mvc:view-resolvers prefix="/WEB-INF/view/" 밑의 주소가 정확하게 와야 한다.
+		return "country/main";		// 	beans_mvc의 mvc:view-resolvers prefix="/WEB-INF/view/" 밑의 주소가 정확하게 와야 한다.
 		// 이후 resolver 로직처럼 main이 main.jsp로 인식이 됨.http://localhost:8080/Employee/city/main.html 치면 최종적으로는 /WEB-INF/view/city/main.jsp 실행 된다. 
 	}
 	
@@ -60,7 +60,7 @@ public class CityController {
 	@RequestMapping(value="/list.html", method = RequestMethod.GET)	
 	public String getListView() {
 		log.info("getListView()...");
-		return "city/list";		
+		return "country/list";		
 	}
 	
 	/*
@@ -69,7 +69,7 @@ public class CityController {
 	@RequestMapping(value="/detail.html", method = RequestMethod.GET)	
 	public String getDetailView() {
 		log.info("getDetailView()...");
-		return "city/detail";		 
+		return "country/detail";		 
 	}
 	
 	/*
@@ -78,7 +78,7 @@ public class CityController {
 	@RequestMapping(value="/append.html", method = RequestMethod.GET)	
 	public String getAppendView() {
 		log.info("getAppendView()...");
-		return "city/append";		 
+		return "country/append";		 
 	}
 	
 	/*
@@ -87,7 +87,7 @@ public class CityController {
 	@RequestMapping(value="/modify.html", method = RequestMethod.GET)	
 	public String getModifyView() {
 		log.info("getModifyView()...");
-		return "city/modify";		 
+		return "country/modify";		 
 	}
 	
 	/*
@@ -96,7 +96,7 @@ public class CityController {
 	@RequestMapping(value="/delete.html", method = RequestMethod.GET)	
 	public String getDeleteView() {
 		log.info("getDeleteView()...");
-		return "city/delete";		 
+		return "country/delete";		 
 	}
 	
 	

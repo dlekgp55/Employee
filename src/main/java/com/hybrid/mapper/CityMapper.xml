@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hybrid.mapper.CityMapper">
+    
+    
     <select id="selectCount" resultType="int">
         select count(*) from city
     </select>
+    
     <select id="selectAll" resultType="com.hybrid.model.City">
         select id,
 			   name,
@@ -39,8 +42,8 @@
 		  		   		   order by id desc
 		  		        ) inner
 		  	   ) outer
-		 where outer.r &gt;= #{firstItem}
-		   and outer.r &lt;= #{lastItem}
+		 where outer.r &gt;= #{firstItem}				<!-- great than -->
+		   and outer.r &lt;= #{lastItem}				<!-- less than -->
     </select>
     
     

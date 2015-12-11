@@ -23,11 +23,14 @@ public class BeanCreateTest {
 	
 	static GenericXmlApplicationContext ctx = null;
 	
+	
 	public static void main(String[] args) throws InterruptedException, ParserConfigurationException, SAXException, IOException {
 		
 		ctx = new GenericXmlApplicationContext("com/hybrid/bean/beans.xml");
 		
 //		test1();
+//		test2();
+		
 		
 		Document document = ctx.getBean(Document.class);
 		
@@ -50,21 +53,21 @@ public class BeanCreateTest {
 	
 	static void test1() throws InterruptedException {
 		
-		Date d = ctx.getBean(Date.class);
+		Date d = ctx.getBean(Date.class);			//bean.xml
 		log.info("date = " + d);
 		
 		Thread.sleep(2000);
-		
-		Date d2 = ctx.getBean(Date.class);
+				
+		Date d2 = ctx.getBean(Date.class);			//동일시간 불러옴. 이유는 singlton이기 때문에 이미 memory에 기존 data가 저장 되어 있음.
 		log.info("date = " + d2);
 		
-		Member m = ctx.getBean(Member.class);
+		Member m = ctx.getBean(Member.class);		//beans.xml의 Member bean을 주입.
 		Member m2 = ctx.getBean(Member.class);
 		
 		m.setId(100);
 		m.setEmail("xxx@yyy.co.kr");
 		
-		log.info("id = " + m2.getId());
+		log.info("id = " + m2.getId());				//이또한 동일 data 불러옴.
 		log.info("email = " + m2.getEmail());
 		
 		
