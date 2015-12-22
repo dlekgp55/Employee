@@ -26,7 +26,7 @@ import com.hybrid.exception.CityRegisterException;
 import com.hybrid.model.City;
 
 @Controller
-@RequestMapping("/country")		//요청 맵핑. country라는 요청이 들어오면 이 controller가 처리한다.이름을 xxx해도 상관없다(임의적 이름)
+@RequestMapping("/country")		//요청 맵핑.서버에서 실행. country라는 요청이 들어오면 이 controller가 처리한다.이름을 xxx해도 상관없다(임의적 이름)
 public class CountryController {
 
 	static Log log = LogFactory.getLog(CountryController.class);

@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="Response")	//@XmlRootElement XML 변환 대상으로 바꿈. name은 지정할수 있다.
+@XmlRootElement(name="Response")	//@XmlRootElement XML 변환 대상으로 바꿈. name은 지정할수 있다.postman에서 xml 타입으로 볼때 필요.
 @XmlAccessorType(XmlAccessType.FIELD)	//기본적으로 property 이름을 return하지만, 아래의 Element 이름을 return 할수 있게 함.
 public class CityList {
 	
-	@XmlElementWrapper(name="citys")	//wrapper 이름 지정
-	@XmlElement(name="city")		//element 이름 지정
+	@XmlElementWrapper(name="citys")	//wrapper 이름 지정,postman에서 xml 타입으로 볼때 필요.
+	@XmlElement(name="city")		//element 이름 지정,postman에서 xml 타입으로 볼때 필요.
 	List<City> citys;
 
 	public List<City> getCitys() {

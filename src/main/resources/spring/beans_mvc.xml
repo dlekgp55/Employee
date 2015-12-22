@@ -31,10 +31,14 @@
 <mvc:resources location="/WEB-INF/node_modules/angular-animate/" mapping="/angular-animate/**"/>
 <mvc:resources location="/WEB-INF/node_modules/angular-touch/" mapping="/angular-touch/**"/>
 <mvc:resources location="/WEB-INF/node_modules/angular-loading-bar/" mapping="/angular-loading-bar/**"/>
+<mvc:resources location="/WEB-INF/node_modules/ngmap/" mapping="/ngmap/**"/>
 
 
 <mvc:resources location="/WEB-INF/node_modules/bootstrap/" mapping="/bootstrap/**"/>
 <mvc:resources location="/WEB-INF/node_modules/jquery/" mapping="/jquery/**"/>
+
+<mvc:resources location="/WEB-INF/node_modules/font-awesome/" mapping="/font-awesome/**"/>
+<mvc:resources location="/WEB-INF/node_modules/metismenu/" mapping="/metismenu/**"/>
 <!-- spring은 WEB-INF를 인식 하지 못한다. 그래서 mapping 해야 함. mapping의 이름은 동일하지 않아도 된다. -->
 
 </beans>

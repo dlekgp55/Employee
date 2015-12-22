@@ -64,9 +64,16 @@
 </bean>
 
 <!-- MemberMapper -->
-<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 	<property name="mapperInterface" value="com.hybrid.mapper.MemberMapper"/>
 	<property name="sqlSessionTemplate" ref="sqlSession"/>
+</bean>
+
+
+<!-- MemberDao -->
+<bean id="memberDao" class="com.hybrid.dao.MemberDao">
+	<property name="memberMapper" ref="memberMapper"></property>
+
 </bean>
 
 <!-- CityMapper -->
@@ -74,6 +81,8 @@
 	<property name="mapperInterface" value="com.hybrid.mapper.CityMapper"/>
 	<property name="sqlSessionTemplate" ref="sqlSession"/>
 </bean>
+
+
 <!-- CityDao -->
 <bean id="cityDao" class="com.hybrid.dao.CityDao">
 	<property name="cityMapper" ref="cityMapper"></property>

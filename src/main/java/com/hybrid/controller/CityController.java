@@ -1,10 +1,5 @@
 package com.hybrid.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hybrid.command.CityCommand;
+import com.hybrid.model.City;
 import com.hybrid.model.CityList;
 import com.hybrid.model.CityPage;
+import com.hybrid.service.CityDetailService;
 import com.hybrid.service.CityListService;
+import com.hybrid.service.CityModifyService;
 import com.hybrid.service.CityPageService;
 import com.hybrid.service.CityRegisterService;
-import com.hybrid.util.Pagination;
-import com.hybrid.command.CityCommand;
-import com.hybrid.exception.CityRegisterException;
-import com.hybrid.model.City;
+import com.hybrid.service.CityUnRegisterService;
 
 @Controller
 @RequestMapping("/city")		//요청 맵핑. city라는 요청이 들어오면 이 controller가 처리한다.이름을 xxx해도 상관없다(임의적 이름)
@@ -39,6 +35,15 @@ public class CityController {
 	
 	@Autowired
 	CityRegisterService cityRegisterService ;
+	
+	@Autowired
+	CityDetailService cityDetailService ;
+	
+	@Autowired
+	CityModifyService cityModifyService ;
+	
+	@Autowired
+	CityUnRegisterService cityUnRegisterService ;
 	
 	
 	/* 
@@ -124,15 +129,13 @@ public class CityController {
 	public City getCityItem(@PathVariable int id){				//위에 맵핑된 id를 받는다.
 		log.info("getCityItem()... id = " + id);
 		
-		City city = new City();
-		city.setId(id);
-		city.setName("seoul");
+		City city = cityDetailService.detail(id);
 		
-		return null;
+		return city;
 	}
 	
 	/*
-	 * URL_GET_PAGE = [/city/page/{pageNo}]
+	 * URL_GET_PAGE_BASE = [/city/page/{pageNo}]
 	 * Accept = application/json
 	 */
 	
@@ -167,18 +170,19 @@ public class CityController {
 		return command;
 	}
 	
-	
 	/*
 	 * URL_PUT_ITEM_MODIFY = [/city/{id}]
 	 * Accept = application/json 
 	 */
 	@RequestMapping(value="/{id:[0-9]+}", method = RequestMethod.PUT)			//PUT(modify) 방식
 	@ResponseBody																//json으로 전송
-	public CityCommand putCityModify(@PathVariable int id, @RequestBody CityCommand city) {		//@RequestBody. property가 동일한 이름이 넘어오면 여기에 data가 들어감.
+	public CityCommand putCityModify(@PathVariable int id, @RequestBody CityCommand command) {		//@RequestBody.view에서 데이터가 넘어오면 받음.
 		log.info("putCityModify()... id = " + id);
-		log.info("putCityModify()... city id = " + city.getId());
+		log.info("putCityModify()... city id = " + command.getId());
 		
-		return city;
+		cityModifyService.modify(command.getCity());
+		
+		return command;
 	}
 	
 	
@@ -188,11 +192,11 @@ public class CityController {
 	 */
 	@RequestMapping(value="/{id:[0-9]+}", method = RequestMethod.DELETE)					//DELETE(DELETE) 방식
 	@ResponseBody																//json으로 전송
-	public CityCommand deleteCity(@PathVariable int id) {			
+	public void deleteCity(@PathVariable int id) {		/*delete는 리턴 되는 값이 없다.*/	
 		log.info("putCityModify()... id = " + id);
-		CityCommand city = new CityCommand();
-		city.setId(id);
-		return city;
+		
+		cityUnRegisterService.unregist(id);
+
 	}
 	
 	

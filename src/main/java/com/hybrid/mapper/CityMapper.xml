@@ -47,6 +47,18 @@
     </select>
     
     
+    <select id="selectById" parameterType="int" resultType="com.hybrid.model.City">
+        select id,
+			   name,
+			   countrycode,
+			   district,
+			   population
+		  from city
+		 where id = #{id}
+    </select>
+    
+    
+    
     <select id="selectByCountryCode" parameterType="string" resultType="com.hybrid.model.City">
         select id,
 			   name,
@@ -85,7 +97,8 @@
     <insert id="insert" 
         	parameterType="com.hybrid.model.City"
         	databaseId="oracle"								
-        	>    
+        	>   
+        		<!-- insert와 넘버링 부분에서만 mysql과 oracle이 차이가 있다. --> 
         <selectKey keyProperty="id" resultType="int" order="BEFORE">	
             	<!-- oracle의 sequence를 이렇게 사용 할수 있다. 대신 이전에 sql에서 sequence 생성을 해야 한다. -->
             select city_id_generator.nextVal from dual            
@@ -111,7 +124,20 @@
     
     
     
+    <update id="update" parameterType="com.hybrid.model.City">
+		update city
+		   set name 		= #{name},
+		       countryCode	= #{countryCode},
+		       district		= #{district},
+		       population 	= #{population}
+		 where id = #{id}      
+    </update>
     
+    
+    
+    <delete id="deleteById" parameterType="int">
+        delete from city where id = #{id}  
+    </delete>
     
     
     <delete id="deleteAll">

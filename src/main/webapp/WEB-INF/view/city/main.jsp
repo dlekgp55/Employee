@@ -19,10 +19,10 @@
 <c:url var="URL_GET_PAGE_BASE" 				value="/city/page/"/>			<!-- /city/page/{pageNo} -->
 
 <c:url var="URL_POST_LIST_APPEND" 			value="/city/"/>
-<c:url var="URL_POST_ITEM_APPEND" 			value="/city/"/>				<!-- /city/{id} -->
+<c:url var="URL_POST_ITEM_APPEND" 			value="/city/"/>				
 
 <c:url var="URL_PUT_LIST_MODIFY" 			value="/city/"/>
-<c:url var="URL_PUT_LIST_MODIFY_BASE" 		value="/city/"/>				<!-- /city/{id} -->
+<c:url var="URL_PUT_ITEM_MODIFY_BASE" 		value="/city/"/>				<!-- /city/{id} -->
 
 <c:url var="URL_DELETE_ITEM_DELETE_BASE" 	value="/city/"/>				<!-- /city/{id} -->
 
@@ -37,7 +37,7 @@
 			POST_ITEM_APPEND : 				"${URL_POST_ITEM_APPEND}",
 			
 			PUT_LIST_MODIFY : 				"${URL_PUT_LIST_MODIFY}",
-			PUT_LIST_MODIFY_BASE : 			"${URL_PUT_LIST_MODIFY_BASE}",
+			PUT_ITEM_MODIFY_BASE : 			"${URL_PUT_ITEM_MODIFY_BASE}",
 			
 			DELETE_ITEM_DELETE_BASE : 		"${URL_DELETE_ITEM_DELETE_BASE}"
 			

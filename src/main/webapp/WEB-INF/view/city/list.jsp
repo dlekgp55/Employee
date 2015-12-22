@@ -37,15 +37,15 @@
 			<tbody>
 				<tr data-ng-repeat="city in citys">
 					<td>{{$index+1}}</td>
-					<td><a href="#/detail"> {{city.id}}</a></td>	
+					<td><a href="#/detail/{{city.id}}"> {{city.id}}</a></td>	
 					<!-- detailController의 $routeProvider.when("/detail"에서 대응.  -->
 					<!-- 상대 경로로써 http://localhost:8080/Employee/city/main.html의 뒤에 #/detail이 붙는다. 기존URL에 #xxxx가 붙어 있어도 자동으로 인식 되나 봄 -->
 					<td>{{city.name}}</td>
 					<td>{{city.countryCode}}</td>
 					<td>{{city.district}}</td>
 					<td>{{city.population}}</td>
-					<td><a href="#/modify" class="btn btn-success">Modify</a></td>
-					<td><a href="#/delete" class="btn btn-info">Delete</a></td>
+					<td><a href="#/modify/{{city.id}}" class="btn btn-success">Modify</a></td>
+					<td><a href="#/delete/{{city.id}}" class="btn btn-info">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>

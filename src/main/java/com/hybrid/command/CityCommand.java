@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hybrid.exception.PasswordNotMatchingException;
 import com.hybrid.model.City;
 
-@JsonIgnoreProperties(value = "city")	//return 되는 값city property가 무시된다(값이 안넘어감). getCity() 의 property는 city다. get빠지면 g는 소문자.
+@JsonIgnoreProperties(value = "city")	//return 되는 값. city property가 무시된다(값이 안넘어감). getCity() 의 property는 city다. get빠지면 g는 소문자.
 public class CityCommand {
 	private int id;
 	private String name;
@@ -58,7 +58,7 @@ public class CityCommand {
 	
 	public City getCity(){
 		City c = new City();
-//		c.setId(id);			id는 넘어오지 않음.
+		c.setId(id);			
 		c.setName(name);
 		c.setCountryCode(countryCode);
 		c.setDistrict(district);

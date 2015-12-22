@@ -17,7 +17,7 @@ app.config(function($routeProvider) {			/* maingController가 실행되고 부�
 	
 app.controller('modifyController', function($scope, $http, URL) { /* listController 호출 */
 	console.log("modifyController...");
-	console.log("URL.PUT_LIST_MODIFY_BASE = " + URL.PUT_LIST_MODIFY_BASE);
+	console.log("URL.PUT_ITEM_MODIFY_BASE = " + URL.PUT_ITEM_MODIFY_BASE);
 	
 	$scope.$parent.title = "Modify City View";			//이것의 부모의 title 설정
 	
